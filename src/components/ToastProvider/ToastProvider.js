@@ -1,9 +1,14 @@
 import React from "react";
-
+import { useEscapeKey } from "../../hooks/use-escape-key.hook.js";
 export const ToastContext = React.createContext();
 
 export function ToastProvider({ children }) {
   const [toastsPropsArray, setToastsPropsArray] = React.useState([]);
+
+  function removeAllToasts() {
+    setToastsPropsArray([]);
+  }
+  useEscapeKey(removeAllToasts);
 
   const value = React.useMemo(() => {
     function addToast({ message, variant, timeToLive }) {
@@ -25,15 +30,10 @@ export function ToastProvider({ children }) {
       setToastsPropsArray(newToastsPropsArray);
     }
 
-    function removeAllToasts() {
-      setToastsPropsArray([]);
-    }
-
     return {
       toastsPropsArray,
       addToast,
       removeToast,
-      removeAllToasts,
       setToastsPropsArray,
     };
   }, [toastsPropsArray]);

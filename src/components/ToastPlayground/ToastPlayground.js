@@ -5,8 +5,6 @@ import Button from "../Button";
 import { ToastContext } from "../ToastProvider";
 import ToastShelf from "../ToastShelf";
 
-import { useEscapeKey } from "../../hooks/use-escape-key.hook.js";
-
 import styles from "./ToastPlayground.module.css";
 
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
@@ -16,10 +14,7 @@ function ToastPlayground() {
   const [messageText, setMessageText] = React.useState("");
   const [variantChoice, setVariantChoice] = React.useState(VARIANT_OPTIONS[0]);
   const [timeToLive, setTimeToLive] = React.useState(DEFAULT_TTL);
-  const { toastsPropsArray, addToast, removeAllToasts } =
-    React.useContext(ToastContext);
-
-  useEscapeKey(removeAllToasts);
+  const { toastsPropsArray, addToast } = React.useContext(ToastContext);
 
   function handleFormSubmit(e) {
     e.preventDefault();
